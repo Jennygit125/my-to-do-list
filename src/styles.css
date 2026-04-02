@@ -1,0 +1,29 @@
+/* styles.css */
+*{margin:0;
+}
+body {
+  background-color: black;
+  color: gray;
+}
+header {
+  background-color: white;
+  width: 100vw;
+  border-bottom: 2px solid aqua;
+  color:rebeccapurple;
+  position: sticky;
+  text-align: center;
+  padding: 1rem;
+}
+#container{
+    margin-top: 1rem;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+#main-card {
+  display: flex;
+  min-height: 40vh;
+  min-width: 40vw;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+}
