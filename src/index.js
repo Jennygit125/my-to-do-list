@@ -1,5 +1,6 @@
 // src/index.js
 import "./styles.css";
+import "./brain.js";
 
 import odinImage from "./logo.png";
 
