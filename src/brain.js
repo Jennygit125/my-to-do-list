@@ -16,7 +16,7 @@ function setDefaultDueDateTime() {
 }
 
 function setupForm() {
-  const form = document.getElementById('add-item-form');
+  const form = document.getElementById('add-project-form');
   if (!form) return;
 
   form.addEventListener('submit', (event) => {
@@ -55,8 +55,8 @@ function setupForm() {
     console.log('Added task', { title, description, dueDate: friendlyDue });
 
     // Optionally reset / keep defaults
-    setDefaultDueDateTime();
     form.reset();
+    setDefaultDueDateTime();
   });
 }
 

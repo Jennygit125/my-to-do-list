@@ -6,9 +6,60 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
     <script defer src="main.js"></script></head>
     <body>
+       <header>
+        <h1>My To Do List</h1>
+        <div id="profile">
+        </div>
+
+       </header>
        
+       <div id="container">
+        
+        <div id="projects">
+            <ul id="to-do-list">
+                <button id="add-newp">+ Add New Project</button>
+                <div id="blur-background">
+       <form id="add-project-form">
+        
+        <h2>Add New Project</h2>
+        <input type="text" id="Title" placeholder="Add Title">
+        <br>
+        <input type="text" id="Description" placeholder="Add Description"><br>
+        <input type="date" id="DueDate"><br>
+        <input type="time" id="DueTime"><br>
+        <button type="submit">Add Item</button>
+       </form>
+        </div>
+                <select id="project-filter">
+                    <option value="">Sort by Time created</option>
+                    <option value="Sort-Due-Date">Sort by Due Date</option>
+                    <option value="Sort-Title">Sort by Title</option>
+                </select>
+                <button id="delete-all-btn">Delete All</button>
+                <li>
+                    <strong>Project 1</strong> - Description of Project 1<br>
+                    <span class="due-date">Due: 2024-06-30</span><br>
+                    <span class="due-time">Time: 14:00</span><br>
+                    <button class="edit-btn">Edit</button>
+                     <button id="delete-btn">Delete</button>
+                </li>
+                <li>
+                    <strong>Project 2</strong> - Description of Project 2<br>
+                    <span class="due-date">Due: 2024-06-30</span><br>
+                    <span class="due-time">Time: 14:00</span><br>
+                    <button class="edit-btn">Edit</button>
+                     <button id="delete-btn">Delete</button>
+                </li>
+
+
+            </ul>
+       </div>
+
+       <div id="main-card">
+       </div>
+
+       </div>
     </body>
 </html>

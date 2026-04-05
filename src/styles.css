@@ -1,36 +1,96 @@
 /* styles.css */
+:root {
+    --secondary: #1513a3;
+    --primary: #00aeef;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 *{margin:0;
+  max-width: 100vw;
 }
 body {
-  background-color:whitesmoke;
+  background-color:white;
   color: gray;
 }
 header {
   background-color: white;
   width: 100vw;
+  display:flex;
   border-bottom: 2px solid aqua;
   color:rgb(32, 194, 223);
   position: sticky;
   text-align: center;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+h1 {
+  margin-left: auto;
+  font-size: 2rem;
+}
+#profile {
+  width: 3rem;
+  display: inline;
+  height: 3rem;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-left: auto;
+  margin-right: 2rem;
+  float: right;
 }
 #container{
     display:grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }
-#left {
-  background-color: white;
-  margin: 0;
-  border-right: solid 2px aqua;
+#projects {
+  display: block;
+  margin: 1rem auto;
+  background-color: #fffff0;
+  width: 90%;
   padding: 1rem;
-  display: flex;
+  box-shadow: 0 5px 15px rgba(12, 110, 175, 0.3);
+}
+#project-filter{
+background-color: rgba(45, 104, 192, 0.4);
+display: inline-flex;
+padding-top: 0.2rem;
+padding-bottom: 0.2rem;
+width: max-content;opacity: 0.7;
+border: none;
+}
+#project-filter:hover{
+  opacity: 1;
+  border: solid 2px var(--secondary);
+}
+
+#blur-background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(8px); 
+  -webkit-backdrop-filter: blur(8px);
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  align-items: center;
+  z-index: 1000;
+}
+#add-project-form{
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(12, 110, 175, 0.3);
 }
 #right {
   background-color: white;
   margin: 0;
-  
+  z-index: 2;
   padding: 1rem;
   display: block;
 }
@@ -46,7 +106,7 @@ li {
   padding: 0.5rem;
   border-radius: 4px;
   border: solid 1px #ccc;
-  display: flex;
+  display: block;
   justify-content: space-between;
   align-items: center;
 }
@@ -60,17 +120,22 @@ input {
   margin: 1rem;
 }
 button {
-  background-color: #007bff;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: var(--transition);
   margin: 1rem;
+}
+button:hover{
+  background-color: var(--secondary);
+  transition: var(--transition);
+
 }
 
 input:focus {
-  border-color: #007bff;
+  border-color: var(--primary);
   outline: none;
 }

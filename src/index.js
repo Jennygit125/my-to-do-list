@@ -2,14 +2,12 @@
 import "./styles.css";
 import "./brain.js";
 
-import odinImage from "./logo.png";
+import odinImage from "./file-account-outline.svg";
 
 const image = document.createElement("img");
 image.src = odinImage;
 
-document.getElementById("main-card").
-style.backgroundImage = `url(${odinImage})`;
+document.getElementById("profile").appendChild(image);
 
-import { greeting } from "./greeting.js";
-
+const greeting = "Welcome to My To Do List!";
 console.log(greeting);
