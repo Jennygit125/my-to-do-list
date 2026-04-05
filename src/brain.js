@@ -60,7 +60,40 @@ function setupForm() {
   });
 }
 
+function toggleSidebar() {
+  const navBtn = document.getElementById('nav');
+  const sidebar = document.getElementById('menu');
+  const backdrop = document.getElementById('menu-backdrop');
+  const menuLinks = sidebar?.querySelectorAll('.menu-item') || [];
+
+  if (!navBtn || !sidebar || !backdrop) return;
+
+  const closeSidebar = () => {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('open');
+  };
+
+  navBtn.addEventListener('click', () => {
+    const isOpen = sidebar.classList.toggle('open');
+    backdrop.classList.toggle('open', isOpen);
+  });
+
+  backdrop.addEventListener('click', closeSidebar);
+
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeSidebar();
+    }
+  });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   setDefaultDueDateTime();
   setupForm();
-}); 
+  toggleSidebar();
+});
+
