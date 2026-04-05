@@ -8,16 +8,16 @@
   max-width: 100vw;
 }
 body {
-  background-color:white;
+  background-color:rgb(43, 42, 42);
   color: gray;
 }
 header {
   background-color: white;
   width: 100vw;
   display:flex;
+  position: sticky; top: 0;
   border-bottom: 2px solid aqua;
   color:rgb(32, 194, 223);
-  position: sticky;
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -41,15 +41,27 @@ h1 {
 #container{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+    gap: 0.21rem;
+    margin-top: 0.21rem;
+    width: 100vw;
+}
+#menu{
+  display: block;
+  background-color: white;
+  padding: 1rem;
+  border-right: solid 1px salmon;
+  box-shadow: 2px 10px 25px rgba(253, 9, 9, 0.3);
+}
+#metrics{
+display: block;
+  background-color: white;
+  padding: 1rem;
+  border-left: solid 1px rgb(114, 184, 250);
+  box-shadow: 2px 10px 25px rgba(2, 1, 56, 0.3);
 }
 #projects {
   display: block;
-  margin: 1rem auto;
   background-color: #fffff0;
-  width: 90%;
   padding: 1rem;
   box-shadow: 0 5px 15px rgba(12, 110, 175, 0.3);
 }
