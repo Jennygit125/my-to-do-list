@@ -1,65 +1,87 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script defer src="main.js"></script></head>
-    <body>
-       <header>
-        <h1>My To Do List</h1>
-        <div id="profile">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script defer src="main.js"></script></head>
+  <body>
+    <header>
+      <button id="nav" aria-label="Toggle navigation menu">
+      </button>
+      <h1>My To Do List</h1>
+      <div id="profile">
+      </div>
+    </header>
+
+    <div id="container">
+      <aside id="menu">
+        <h3>Navigation</h3>
+        <a href="#" class="menu-item">My Tasks</a>
+        <a href="#" class="menu-item">Important</a>
+        <a href="#" class="menu-item">Completed</a>
+        <a href="#" class="menu-item">Projects</a>
+        <hr>
+        <a href="#" class="menu-item">Settings</a>
+        <a href="#" class="menu-item">Help</a>
+      </aside>
+      <div id="menu-backdrop" aria-hidden="true"></div>
+
+      <div id="projects">
+        <div id="project-controls">
+          <button id="add-newp">+ Add New Project</button>
+          <select id="project-filter">
+            <option value="">Default</option>
+            <option value="Sort-Due-Date">Sort by Due Date</option>
+            <option value="Sort-Title">Sort by Title</option>
+          </select>
+          <button id="delete-all-btn">Delete All</button>
         </div>
 
-       </header>
-       
-       <div id="container">
-        
-        <div id="projects">
-            <ul id="to-do-list">
-                <button id="add-newp">+ Add New Project</button>
-                <div id="blur-background">
-       <form id="add-project-form">
-        
-        <h2>Add New Project</h2>
-        <input type="text" id="Title" placeholder="Add Title">
-        <br>
-        <input type="text" id="Description" placeholder="Add Description"><br>
-        <input type="date" id="DueDate"><br>
-        <input type="time" id="DueTime"><br>
-        <button type="submit">Add Item</button>
-       </form>
+        <div id="blur-background">
+          <form id="add-project-form">
+            <div class="form-header">
+              <h2>Add New Project</h2>
+              <button type="button" id="close-form-btn" aria-label="Close add project form">x</button>
+            </div>
+            <input type="text" id="Title" placeholder="Add Title" required>
+            <input type="text" id="Description" placeholder="Add Description">
+            <input type="date" id="DueDate" required>
+            <input type="time" id="DueTime" required>
+            <button type="submit">Add Item</button>
+          </form>
         </div>
-                <select id="project-filter">
-                    <option value="">Sort by Time created</option>
-                    <option value="Sort-Due-Date">Sort by Due Date</option>
-                    <option value="Sort-Title">Sort by Title</option>
-                </select>
-                <button id="delete-all-btn">Delete All</button>
-                <li>
-                    <strong>Project 1</strong> - Description of Project 1<br>
-                    <span class="due-date">Due: 2024-06-30</span><br>
-                    <span class="due-time">Time: 14:00</span><br>
-                    <button class="edit-btn">Edit</button>
-                     <button id="delete-btn">Delete</button>
-                </li>
-                <li>
-                    <strong>Project 2</strong> - Description of Project 2<br>
-                    <span class="due-date">Due: 2024-06-30</span><br>
-                    <span class="due-time">Time: 14:00</span><br>
-                    <button class="edit-btn">Edit</button>
-                     <button id="delete-btn">Delete</button>
-                </li>
 
+        <ul id="to-do-list"></ul>
+      </div>
 
-            </ul>
-       </div>
-
-       <div id="main-card">
-       </div>
-
-       </div>
-    </body>
+      <div id="metrics">
+        <h2 class="metrics-title">Usage Metrics</h2>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <p class="metric-label">Total Tasks</p>
+            <p id="metric-total" class="metric-value">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Completed</p>
+            <p id="metric-completed" class="metric-value">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Pending</p>
+            <p id="metric-pending" class="metric-value">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Overdue</p>
+            <p id="metric-overdue" class="metric-value">0</p>
+          </div>
+        </div>
+        <div id="main-card">
+          <p class="metric-label">Completion Rate</p>
+          <p id="metric-rate" class="metric-rate">0%</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

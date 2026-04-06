@@ -42,39 +42,45 @@
 
         <div id="blur-background">
           <form id="add-project-form">
-            <h2>Add New Project</h2>
-            <input type="text" id="Title" placeholder="Add Title">
-            <br>
+            <div class="form-header">
+              <h2>Add New Project</h2>
+              <button type="button" id="close-form-btn" aria-label="Close add project form">x</button>
+            </div>
+            <input type="text" id="Title" placeholder="Add Title" required>
             <input type="text" id="Description" placeholder="Add Description">
-            <br>
-            <input type="date" id="DueDate">
-            <br>
-            <input type="time" id="DueTime">
-            <br>
+            <input type="date" id="DueDate" required>
+            <input type="time" id="DueTime" required>
             <button type="submit">Add Item</button>
           </form>
         </div>
 
-        <ul id="to-do-list">
-          <li>
-            <strong>Project 1</strong> - Description of Project 1<br>
-            <span class="due-date">Due: 2024-06-30</span><br>
-            <span class="due-time">Time: 14:00</span><br>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </li>
-          <li>
-            <strong>Project 2</strong> - Description of Project 2<br>
-            <span class="due-date">Due: 2024-06-30</span><br>
-            <span class="due-time">Time: 14:00</span><br>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </li>
-        </ul>
+        <ul id="to-do-list"></ul>
       </div>
 
       <div id="metrics">
-        <div id="main-card"></div>
+        <h2 class="metrics-title">Usage Metrics</h2>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <p class="metric-label">Total Tasks</p>
+            <p id="metric-total" class="metric-value">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Completed</p>
+            <p id="metric-completed" class="metric-value">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Pending</p>
+            <p id="metric-pending" class="metric-value">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Overdue</p>
+            <p id="metric-overdue" class="metric-value">0</p>
+          </div>
+        </div>
+        <div id="main-card">
+          <p class="metric-label">Completion Rate</p>
+          <p id="metric-rate" class="metric-rate">0%</p>
+        </div>
       </div>
     </div>
   </body>
