@@ -13,6 +13,7 @@ export default (_env, argv) => {
       filename: isProduction ? "[name].[contenthash].js" : "[name].js",
       path: path.resolve(import.meta.dirname, "dist"),
       clean: true,
+      publicPath: isProduction ? "./" : "/",
       assetModuleFilename: "assets/[name].[contenthash][ext][query]",
     },
     devtool: isProduction ? false : "source-map",
