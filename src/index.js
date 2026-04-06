@@ -4,13 +4,18 @@ import "./brain.js";
 
 import profile from "./img/file-account-outline.svg";
 import menu from "./img/nav.svg";
+
 const image = document.createElement("img");
 image.src = profile;
 
-document.getElementById("profile").appendChild(image);
+const profileContainer = document.getElementById("profile");
+if (profileContainer) {
+  profileContainer.appendChild(image);
+}
+
 const menuImage = document.createElement("img");
 menuImage.src = menu;
-document.getElementById("nav").appendChild(menuImage);
-
-const greeting = "Welcome to My To Do List!";
-console.log(greeting);
+const menuContainer = document.getElementById("nav");
+if (menuContainer) {
+  menuContainer.appendChild(menuImage);
+}

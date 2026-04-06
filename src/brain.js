@@ -1,18 +1,18 @@
 import { addHours, format, isPast, parseISO } from 'date-fns';
+import { calculateMetrics, isTaskOverdue, sortTasks } from './task-utils.js';
+
+const STORAGE_KEY = 'my-to-do-list.tasks.v1';
 
 const state = {
   tasks: [],
   sortMode: '',
 };
 
-function seedDefaultTasks() {
-  if (state.tasks.length > 0) return;
-
-  const now = new Date();
+function createDefaultTasks(now = new Date()) {
   const firstDeadline = format(addHours(now, 24), "yyyy-MM-dd'T'HH:mm");
   const secondDeadline = format(addHours(now, 48), "yyyy-MM-dd'T'HH:mm");
 
-  state.tasks = [
+  return [
     {
       id: createTaskId(),
       title: 'Set up weekly goals',
@@ -28,6 +28,74 @@ function seedDefaultTasks() {
       completed: false,
     },
   ];
+}
+
+function seedDefaultTasks() {
+  if (state.tasks.length > 0) return;
+  state.tasks = createDefaultTasks();
+  persistTasks();
+}
+
+function isValidDeadlineIso(deadlineIso) {
+  if (typeof deadlineIso !== 'string') return false;
+  const parsed = parseISO(deadlineIso);
+  return !Number.isNaN(parsed.getTime());
+}
+
+function normalizeTask(rawTask) {
+  const title =
+    typeof rawTask?.title === 'string' && rawTask.title.trim().length > 0
+      ? rawTask.title.trim()
+      : 'Untitled';
+  const description =
+    typeof rawTask?.description === 'string' ? rawTask.description.trim() : '';
+  const deadlineIso = isValidDeadlineIso(rawTask?.deadlineIso)
+    ? rawTask.deadlineIso
+    : format(addHours(new Date(), 1), "yyyy-MM-dd'T'HH:mm");
+
+  return {
+    id: typeof rawTask?.id === 'string' && rawTask.id ? rawTask.id : createTaskId(),
+    title,
+    description,
+    deadlineIso,
+    completed: Boolean(rawTask?.completed),
+  };
+}
+
+function loadTasksFromStorage() {
+  if (!globalThis.localStorage) return [];
+
+  try {
+    const rawValue = globalThis.localStorage.getItem(STORAGE_KEY);
+    if (!rawValue) return [];
+
+    const parsed = JSON.parse(rawValue);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.map(normalizeTask);
+  } catch {
+    return [];
+  }
+}
+
+function persistTasks() {
+  if (!globalThis.localStorage) return;
+
+  try {
+    globalThis.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
+  } catch {
+    // Ignore storage failures so app remains usable in restricted environments.
+  }
+}
+
+function initializeTasks() {
+  const storedTasks = loadTasksFromStorage();
+  if (storedTasks.length > 0) {
+    state.tasks = storedTasks;
+    return;
+  }
+
+  seedDefaultTasks();
 }
 
 function setDefaultDueDateTime() {
@@ -86,7 +154,8 @@ function displayForm() {
 }
 
 function escapeHtml(value) {
-  return value
+  const text = String(value ?? '');
+  return text
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
@@ -94,21 +163,8 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
-function isTaskOverdue(task) {
-  if (task.completed) return false;
-  return isPast(parseISO(task.deadlineIso));
-}
-
 function getSortedTasks() {
-  const tasks = [...state.tasks];
-
-  if (state.sortMode === 'Sort-Due-Date') {
-    tasks.sort((a, b) => parseISO(a.deadlineIso) - parseISO(b.deadlineIso));
-  } else if (state.sortMode === 'Sort-Title') {
-    tasks.sort((a, b) => a.title.localeCompare(b.title));
-  }
-
-  return tasks;
+  return sortTasks(state.tasks, state.sortMode);
 }
 
 function createTaskId() {
@@ -120,11 +176,9 @@ function createTaskId() {
 }
 
 function updateMetrics() {
-  const total = state.tasks.length;
-  const completed = state.tasks.filter((task) => task.completed).length;
-  const pending = total - completed;
-  const overdue = state.tasks.filter((task) => isTaskOverdue(task)).length;
-  const completionRate = total === 0 ? 0 : Math.round((completed / total) * 100);
+  const { total, completed, pending, overdue, completionRate } = calculateMetrics(
+    state.tasks,
+  );
 
   const totalNode = document.getElementById('metric-total');
   const completedNode = document.getElementById('metric-completed');
@@ -204,6 +258,7 @@ function setupTaskActions() {
       state.tasks = state.tasks.filter((item) => item.id !== taskId);
     }
 
+    persistTasks();
     renderTasks();
   });
 
@@ -212,6 +267,7 @@ function setupTaskActions() {
     deleteAllBtn.addEventListener('click', () => {
       if (state.tasks.length === 0) return;
       state.tasks = [];
+      persistTasks();
       renderTasks();
     });
   }
@@ -245,7 +301,7 @@ function setupForm(closeForm) {
     const deadlineIso = `${dueDateValue}T${dueTimeValue}`;
     const dueDate = parseISO(deadlineIso);
 
-    if (isPast(dueDate)) {
+    if (Number.isNaN(dueDate.getTime()) || isPast(dueDate)) {
       alert('Due date/time cannot be in the past');
       return;
     }
@@ -260,9 +316,8 @@ function setupForm(closeForm) {
       completed: false,
     });
 
+    persistTasks();
     renderTasks();
-
-    console.log('Added task', { title, description, dueDate: friendlyDue });
 
     form.reset();
     setDefaultDueDateTime();
@@ -306,7 +361,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const { closeForm } = displayForm();
   setupForm(closeForm);
   setupTaskActions();
-  seedDefaultTasks();
+  initializeTasks();
   renderTasks();
   toggleSidebar();
 });

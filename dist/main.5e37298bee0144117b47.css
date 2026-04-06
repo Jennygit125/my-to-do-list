@@ -1,0 +1,467 @@
+/* styles.css */
+:root {
+  --primary: #0f9ed8;
+  --secondary: #0d5f89;
+  --accent: #f28f3b;
+  --text: #31363f;
+  --surface: #ffffff;
+  --page: #eef5f8;
+  --danger: #d9534f;
+  --success: #2b8a5b;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(15, 158, 216, 0.15), transparent 45%),
+    radial-gradient(circle at 85% 0%, rgba(242, 143, 59, 0.1), transparent 40%),
+    var(--page);
+  color: var(--text);
+  font-family: "Trebuchet MS", "Gill Sans", "Lucida Sans Unicode", sans-serif;
+}
+
+header {
+  background-color: var(--surface);
+  width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  border-bottom: 2px solid rgba(15, 158, 216, 0.35);
+  color: #26a5d8;
+  text-align: center;
+  padding: 1rem 0;
+  z-index: 1001;
+}
+
+h1 {
+  margin-left: auto;
+  font-size: 1.9rem;
+  letter-spacing: 0.03em;
+}
+
+#profile {
+  width: 3rem;
+  display: inline;
+  height: 3rem;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid #cfe2ea;
+  margin-left: auto;
+  margin-right: 2rem;
+  float: right;
+  background-color: #fff;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+#nav {
+  cursor: pointer;
+  border-radius: 6px;
+  width: 3rem;
+  display: inline;
+  height: 2rem;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  margin-left: 0.2rem;
+  margin-right: auto;
+  float: right;
+}
+
+#nav:hover {
+  background: rgba(15, 158, 216, 0.2);
+}
+
+#container {
+  display: grid;
+  background-color: transparent;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 2.1fr) minmax(280px, 1fr);
+  grid-template-areas: "menu projects metrics";
+  gap: 0.5rem;
+  max-width: 1280px;
+  padding: 0.75rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#menu {
+  grid-area: menu;
+  padding: 1rem;
+  border-right: solid 1px #f1b58d;
+  box-shadow: 2px 10px 22px rgba(218, 145, 100, 0.18);
+  display: none;
+  background: linear-gradient(180deg, #fffdf7, #f5f8ff);
+  border-radius: 10px;
+}
+
+#menu.open {
+  display: block;
+}
+
+#menu-backdrop {
+  display: none;
+}
+
+h3 {
+  margin-top: 1rem;
+}
+
+.menu-item {
+  display: block;
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+}
+
+.menu-item:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+#projects {
+  grid-area: projects;
+  display: block;
+  background-color: #fffffb;
+  padding: 1rem;
+  min-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(11, 99, 146, 0.16);
+}
+
+#project-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+#project-filter {
+  background-color: rgba(15, 158, 216, 0.14);
+  display: inline-flex;
+  padding: 0.5rem;
+  width: max-content;
+  border: 1px solid rgba(15, 158, 216, 0.25);
+  border-radius: 8px;
+  margin: 0.5rem;
+}
+
+#project-filter:hover {
+  border-color: var(--secondary);
+}
+
+#to-do-list {
+  padding: 0;
+  margin-top: 0.6rem;
+}
+
+li {
+  list-style: none;
+}
+
+.empty-state {
+  background-color: #f8fbff;
+  margin: 0.75rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px dashed #9ec9dc;
+  color: #4e6980;
+}
+
+.todo-item {
+  background-color: #f9fcff;
+  margin: 0.75rem 0;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: solid 1px #c9d9e1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.todo-item.completed {
+  border-left: 5px solid var(--success);
+  background-color: #edf8f1;
+}
+
+.todo-item.overdue {
+  border-left: 5px solid var(--danger);
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.todo-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.todo-status {
+  font-size: 0.82rem;
+  color: #2e6282;
+  background-color: #e9f4fc;
+  border: 1px solid #bfdff0;
+  border-radius: 999px;
+  padding: 0.18rem 0.6rem;
+}
+
+.todo-description {
+  font-size: 0.95rem;
+}
+
+.todo-description.muted {
+  color: #7994a3;
+}
+
+.todo-meta {
+  font-size: 0.88rem;
+  color: #4f6877;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.task-actions button {
+  margin: 0;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.86rem;
+}
+
+.complete-btn {
+  background-color: var(--success);
+}
+
+.complete-btn:hover {
+  background-color: #23744d;
+}
+
+.delete-btn {
+  background-color: var(--danger);
+}
+
+.delete-btn:hover {
+  background-color: #b43f3c;
+}
+
+#metrics {
+  grid-area: metrics;
+  display: block;
+  background:
+    linear-gradient(160deg, rgba(15, 158, 216, 0.12), rgba(255, 255, 255, 0.92)),
+    #f5fafe;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(12, 92, 137, 0.15);
+}
+
+.metrics-title {
+  color: #216d93;
+  margin-bottom: 0.7rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.metric-card {
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 158, 216, 0.24);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.metric-label {
+  color: #52788f;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metric-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #144b69;
+  margin-top: 0.2rem;
+}
+
+#main-card {
+  margin-top: 0.75rem;
+  border-radius: 12px;
+  padding: 0.95rem;
+  background: linear-gradient(90deg, rgba(15, 158, 216, 0.2), rgba(242, 143, 59, 0.12));
+  border: 1px solid rgba(15, 158, 216, 0.35);
+}
+
+.metric-rate {
+  margin-top: 0.3rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0b5b81;
+}
+
+#blur-background {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(9, 25, 34, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1300;
+}
+
+#blur-background.open {
+  display: flex;
+}
+
+#add-project-form {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  width: min(92vw, 460px);
+  box-shadow: 0 8px 20px rgba(9, 53, 78, 0.3);
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 {
+  color: #1b8bbb;
+  margin-bottom: 0.8rem;
+}
+
+#close-form-btn {
+  margin: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  background-color: #e8eff3;
+  color: #305162;
+}
+
+#close-form-btn:hover {
+  background-color: #d7e4ea;
+}
+
+input {
+  border: 2px solid #d2dee5;
+  border-radius: 8px;
+  padding: 10px;
+  transition: border-color 0.3s;
+  color: #333;
+  margin: 1rem;
+}
+
+#add-project-form input {
+  width: 100%;
+  margin: 0 0 0.7rem;
+}
+
+button {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: var(--transition);
+  margin: 1rem;
+}
+
+#add-project-form button[type="submit"] {
+  margin: 0.3rem 0 0;
+  width: 100%;
+}
+
+button:hover {
+  background-color: var(--secondary);
+}
+
+input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  #container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "projects"
+      "metrics";
+  }
+
+  #projects {
+    min-height: auto;
+  }
+
+  #metrics {
+    margin-bottom: 0.75rem;
+  }
+
+  #menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(80vw, 280px);
+    height: 100dvh;
+    z-index: 1200;
+    overflow-y: auto;
+  }
+
+  #menu.open {
+    display: block;
+  }
+
+  #menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1100;
+  }
+
+  #menu-backdrop.open {
+    display: block;
+  }
+
+  #project-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #project-controls button,
+  #project-filter {
+    width: 100%;
+    margin: 0.35rem 0;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+

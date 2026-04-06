@@ -1,13 +1,17 @@
 {
   "type": "module",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack serve --open"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development --open",
+    "lint": "node --check webpack.config.js && node --check src/index.js && node --check src/brain.js && node --check src/task-utils.js && node scripts/lint-no-debug.js",
+    "test": "node --test",
+    "verify": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
     "css-loader": "^7.1.4",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.6",
+    "mini-css-extract-plugin": "^2.9.2",
     "style-loader": "^4.0.0",
     "webpack-cli": "^7.0.2",
     "webpack-dev-server": "^5.2.3"
